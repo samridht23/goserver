@@ -2,7 +2,7 @@ package router
 
 import (
 	"github.com/gofiber/fiber/v2"
-	"github.com/samridht23/server/middleware"
+	"github.com/samridht23/server/pkg/middleware"
 )
 
 func Initalize(app *fiber.App) {

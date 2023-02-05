@@ -1,15 +1,9 @@
-version: "1"
+version: "2"
 sql:
-  # sql engine
   - engine: "postgresql"
-    #  query file location
     queries: "query.sql"
-    #  schema file location
     schema: "schema.sql"
-    # generated code configuration
     gen:
       go:
-        # package name of generated code
-        package: "query"
-        # output directory of generated code
-        out: "database"
+        package: "models"
+        out: "pkg/models"

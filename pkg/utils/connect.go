@@ -1,30 +1,32 @@
-package database
+package utils
 
 import (
 	"database/sql"
+	"fmt"
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
-
-	"fmt"
 	"log"
+	"os"
+	"strconv"
 )
 
 // db instance
 var db *sql.DB
 
-const (
-	host     = "localhost"
-	port     = 5432
-	user     = "postgres"
-	password = "paradox"
-	dbname   = "fibertest"
-)
-
 func ConnectDb() error {
 	err := godotenv.Load()
 	if err != nil {
-		fmt.Print("Env not loaded", err)
+		log.Fatal("Error loading enviroment variable", err)
 	}
+	host := os.Getenv("HOST")
+	port, err := strconv.Atoi(os.Getenv("SQLPORT"))
+	if err != nil {
+		log.Fatal("Port not loaded from env")
+	}
+	user := os.Getenv("USER")
+	password := os.Getenv("SQLPASS")
+	dbname := os.Getenv("DBNAME")
+
 	psqlinfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", host, port, user, password, dbname)
 	db, err := sql.Open("postgres", psqlinfo)
 	if err != nil {
